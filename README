@@ -18,3 +18,8 @@ then you can read the documentation typing
 $ pydoc ftpparse
 
 This module was developed using Python 2.1.
+
+
+Thanks to:
+Dan Bernstein for ftpparse.c
+Hartmut Goebel for improved distutils support

@@ -1,2 +1,2 @@
-include *.h
-
+include ftpparse.h
+include MANIFEST.in
