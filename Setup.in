@@ -1,0 +1,2 @@
+*shared*
+ftpparse ftpparsemodule.c ftpparse.c 
