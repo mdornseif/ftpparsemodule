@@ -2,6 +2,8 @@
 * HEADS UP: interface change: ftpparse() returns now a list of 10-element 
   tupels. The additional element contains an integer telling if the 
   filename can be considered a symbolic link on Unix.
+* Addition of __version__ to detect versionnumber
+* improved unittests
 
 0.92 
 * has an improved support for building RPMs via distutils thanks to 
