@@ -4,7 +4,7 @@
    D. R. Tzeck - http://koeln.ccc.de/~drt/
 */
 
-static char rcsid[] = "$Id: ftpparsemodule.c,v 1.2 2001/12/28 14:27:41 drt Exp $";
+static char rcsid[] = "$Id: ftpparsemodule.c,v 1.3 2002/01/02 22:37:20 drt Exp $";
    
 #include <Python.h>
 #include "ftpparse.h"
@@ -144,6 +144,7 @@ static PyObject *pyFtpParse(self, args)
 
       if(PyList_Append(target, ret) != 0)
 	return NULL; 
+      Py_DECREF(ret);
     } 
 
   return target;
