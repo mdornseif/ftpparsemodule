@@ -1,6 +1,6 @@
 ftpparse is a library for parsing FTP LIST responses.
 
-This Python module is completely based on Dan Bernstein's ftpparse
+This Python extension module is completely based on Dan Bernstein's ftpparse
 library at http://cr.yp.to/ftpparse.html Mr. Bernstein requests you to
 inform him if you use his library in an commercial application.
 
@@ -15,11 +15,13 @@ $ python setup.py install
 
 then you can read the documentation typing
 
-$ pydoc ftpparse
+$ pydoc -w ftpparse
+$ lynx ftpparse.html
 
 This module was developed using Python 2.1.
-
 
 Thanks to:
 Dan Bernstein for ftpparse.c
 Hartmut Goebel for improved distutils support
+
+  --drt@un.bewaff.net

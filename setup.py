@@ -16,7 +16,7 @@ long_description = """
     """
 
 setup(name="ftpparsemodule",
-      version="0.92",
+      version="0.93",
       description="Parsing of FTP server LIST responses",
       long_description=long_description,
       author="drt",

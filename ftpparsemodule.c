@@ -2,9 +2,10 @@
    see http://cr.yp.to/ftpparse.html
 
    D. R. Tzeck - http://koeln.ccc.de/~drt/
+     --drt@un.bewaff.net
 */
 
-static char rcsid[] = "$Id: ftpparsemodule.c,v 1.3 2002/01/02 22:37:20 drt Exp $";
+static char rcsid[] = "$Id: ftpparsemodule.c,v 1.4 2002/01/18 09:49:16 drt Exp $";
    
 #include <Python.h>
 #include "ftpparse.h"
@@ -38,9 +39,12 @@ programs you're using it in.
 
 ---8<---------------------------------------------------------------
 
-This Python module is completely based on Dan Bernstein's ftpparse
+This Python module is based on Dan Bernstein's ftpparse
 library at http://cr.yp.to/ftpparse.html Mr. Bernstein requests you to
 inform him if you use his library in an commercial application.
+
+It extends Bernstein's ftpparse code by providing a way to detect
+symbolic links on some UNIX Servers.
 
 The Python wrapper was hacked by drt@un.bewaff.net - http://c0re.jp/
 
@@ -55,10 +59,10 @@ static char pyFtpParse_Doc[] = "Parsing of FTP Server responses.
 ftpparse should be called with a list of lines obtained from an
 FTP-Server. It returns a list of parsed filenames. If ftpparse can't
 find a filename it will fill the corospondending entry in the output
-list with None. If it can find a filename it returns a 9-element tupe
+list with None. If it can find a filename it returns a 10-element tupe
 with Information about the entry.
 
-(name, size, sizetype, mtime, mtimetype, cwd, retr, id, idtype)
+(name, size, sizetype, mtime, mtimetype, cwd, retr, id, idtype, islink)
 
 'name' is the name of the file.
 
@@ -86,8 +90,11 @@ to my knowledge only supported by Dan Bernstein's FTP servers. If idtype
 is ID_FULL there is really an unique identifier for files on this FTP server.
 If idtype is ID_UNKNOWN nothing is known about the ID.
 
+If 'islink' is set to one it can be assumed that the filename is a symbolic 
+link pointing to another file. 
+
 The module defines the constants NAME, SIZE, SIZETYPE, MTIME, MTIMETYPE, CWD, 
-RETR, ID, and IDTYPE to allow acces to the individual returnvaluse.
+RETR, ID, IDTYPE and ISLINK to allow acces to the individual return valuse.
 
 Example:
 >>> import ftpparse
@@ -115,7 +122,7 @@ static PyObject *pyFtpParse(self, args)
   struct ftpparse fp;
   unsigned len;
   char *line;
-  int i;
+  int i, islink;
 
   if(!PyArg_ParseTuple(args, "O!:ftpparse", &PyList_Type, &list))
     return NULL;
@@ -135,12 +142,18 @@ static PyObject *pyFtpParse(self, args)
       if(line[len] == '\r')
 	len--;
 
+      islink = 0;
+      if((len > 11) && (strncmp(line, "lrwxrwxrwx", 10) == 0))
+	islink = 1;
+      else
+	islink = 0;
+       
       if(ftpparse(&fp, line, len) != 1)
 	  ret = Py_BuildValue("");
       else
-	  ret = Py_BuildValue("(s#liliiis#i)", fp.name, fp.namelen, fp.size, fp.sizetype, 
+	  ret = Py_BuildValue("(s#liliiis#ii)", fp.name, fp.namelen, fp.size, fp.sizetype, 
 			      fp.mtime, fp.mtimetype, fp.flagtrycwd, fp.flagtryretr, 
-			      fp.id, fp.idlen, fp.idtype);
+			      fp.id, fp.idlen, fp.idtype, islink);
 
       if(PyList_Append(target, ret) != 0)
 	return NULL; 
@@ -203,6 +216,7 @@ void initftpparse()
   PyDict_SetItemString(d, "RETR", Py_BuildValue("i", 6)); 
   PyDict_SetItemString(d, "ID", Py_BuildValue("i", 7)); 
   PyDict_SetItemString(d, "IDTYPE", Py_BuildValue("i", 8)); 
+  PyDict_SetItemString(d, "ISLINK", Py_BuildValue("i", 9)); 
 
   PyDict_SetItemString(d, "__rcsid__", Py_BuildValue("s", rcsid)); 
   
