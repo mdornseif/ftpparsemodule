@@ -2,6 +2,8 @@
 
 from distutils.core import setup, Extension
 
+version = "0.93"
+
 long_description = """
     ftpparse is a library for parsing FTP LIST responses.
 
@@ -16,13 +18,14 @@ long_description = """
     """
 
 setup(name="ftpparsemodule",
-      version="0.93",
+      version=version,
       description="Parsing of FTP server LIST responses",
       long_description=long_description,
       author="drt",
       author_email="drt@un.bewaff.net",
       url="http://c0re.jp/c0de/ftpparse/",
-      ext_modules=[Extension("ftpparse", ["ftpparsemodule.c", "ftpparse.c"])]
+      ext_modules=[Extension("ftpparse", ["ftpparsemodule.c", "ftpparse.c"],
+	                     define_macros=[('VERSION', '"%s"' % (version))])]
       )
 
 

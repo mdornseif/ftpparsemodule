@@ -5,7 +5,7 @@
      --drt@un.bewaff.net
 */
 
-static char rcsid[] = "$Id: ftpparsemodule.c,v 1.4 2002/01/18 09:49:16 drt Exp $";
+static char rcsid[] = "$Id: ftpparsemodule.c,v 1.5 2002/01/18 10:15:51 drt Exp $";
    
 #include <Python.h>
 #include "ftpparse.h"
@@ -45,6 +45,9 @@ inform him if you use his library in an commercial application.
 
 It extends Bernstein's ftpparse code by providing a way to detect
 symbolic links on some UNIX Servers.
+
+You can get the version of the actual module you are using by 
+querying '__version__' and '__rcsid__'.
 
 The Python wrapper was hacked by drt@un.bewaff.net - http://c0re.jp/
 
@@ -219,6 +222,7 @@ void initftpparse()
   PyDict_SetItemString(d, "ISLINK", Py_BuildValue("i", 9)); 
 
   PyDict_SetItemString(d, "__rcsid__", Py_BuildValue("s", rcsid)); 
+  PyDict_SetItemString(d, "__version__", Py_BuildValue("s", VERSION)); 
   
   if (PyErr_Occurred())
     Py_FatalError("Can't initialize module ftpparse.\n");

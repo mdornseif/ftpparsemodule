@@ -1,4 +1,4 @@
-"$Id: test_ftpparse.py,v 1.3 2002/01/18 09:49:16 drt Exp $"
+"$Id: test_ftpparse.py,v 1.4 2002/01/18 10:15:51 drt Exp $"
 
 # Tests for ftpparse module
 
@@ -101,6 +101,32 @@ class SimpleCheck(unittest.TestCase):
             answer = ftpparse.ftpparse(question) 
         # this once produced a huge output
         gc.collect()
+
+    def testAttr(self):
+            self.assertEqual(ftpparse.NAME, 0)
+            self.assertEqual(ftpparse.SIZE, 1)
+            self.assertEqual(ftpparse.SIZETYPE, 2)
+            self.assertEqual(ftpparse.SIZE_UNKNOWN, 0)
+            self.assertEqual(ftpparse.SIZE_BINARY, 1)
+            self.assertEqual(ftpparse.SIZE_ASCII, 2)
+            self.assertEqual(ftpparse.MTIME, 3)
+            self.assertEqual(ftpparse.MTIMETYPE, 4)
+            self.assertEqual(ftpparse.MTIME_UNKNOWN, 0)
+            self.assertEqual(ftpparse.MTIME_LOCAL, 1)
+            self.assertEqual(ftpparse.MTIME_REMOTEMINUTE, 2)
+            self.assertEqual(ftpparse.MTIME_REMOTEDAY, 3)
+            self.assertEqual(ftpparse.CWD, 5)
+            self.assertEqual(ftpparse.RETR, 6)
+            self.assertEqual(ftpparse.ID, 7)
+            self.assertEqual(ftpparse.IDTYPE, 8)
+            self.assertEqual(ftpparse.ID_UNKNOWN, 0)
+            self.assertEqual(ftpparse.ID_FULL, 1)
+            self.assertEqual(ftpparse.ISLINK, 9)
+
+ftpparse.__rcsid__
+'$Id: test_ftpparse.py,v 1.4 2002/01/18 10:15:51 drt Exp $'
+ftpparse.__version__
+
         
 if __name__ == "__main__":
     unittest.main()
