@@ -1,0 +1,14 @@
+0.93
+* HEADS UP: interface change: ftpparse() returns now a list of 10-element 
+  tupels. The additional element contains an integer telling if the 
+  filename can be considered a symbolic link on Unix.
+
+0.92 
+* has an improved support for building RPMs via distutils thanks to 
+  Hartmut Goebel 
+
+0.91
+* 0.9 had some actual time dependent unittests - removed in 0.91 
+* 0.9 was leaking memory - fixed in 0.91 
+
+  --drt@un.bewaff.net
