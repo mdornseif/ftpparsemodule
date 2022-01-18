@@ -1,3 +1,5 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 ftpparse is a library for parsing FTP LIST responses.
 
 This Python extension module is completely based on Dan Bernstein's ftpparse
